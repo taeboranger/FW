@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         date : { //구매일
             type : DataTypes.STRING(200)
         },
+        type : {
+            type : DataTypes.STRING(200),
+            allowNull : false
+        }
     },
     {
         timestamps: true,

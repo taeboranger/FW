@@ -17,5 +17,6 @@ db.Sequelize = Sequelize;
 db.User = require('./User')(sequelize, Sequelize)
 db.Sheet = require('./Sheet')(sequelize, Sequelize)
 db.Item = require('./Item')(sequelize, Sequelize)
+db.ItemImg = require('./ItemImg')(sequelize, Sequelize)
 
 module.exports = db;

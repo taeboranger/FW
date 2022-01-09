@@ -1,33 +1,29 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('User', {
+    return sequelize.define('ItemImg', {
         index: {
             type : DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey : true
         },
-        userId : {
-            type : DataTypes.STRING(200),
+        itemCode : {
+            type : DataTypes.INTEGER,
             primaryKey : true,
             allowNull : false
         },
-        email : {
-            type : DataTypes.STRING(200),
+        file_link : {
+            type : DataTypes.STRING(500),
             primaryKey : true,
             allowNull : false
         },
-        total_c : {
+        turn : {
             type: DataTypes.INTEGER,
             allowNull : false
         },
-        total_p : {
-            type: DataTypes.INTEGER,
-            allowNull : false
-        }
     },
     {
         timestamps: true,
         freezeTableName: true,
-        tableName: 'User',
+        tableName: 'ItemImg',
         unique: false
     })
 }

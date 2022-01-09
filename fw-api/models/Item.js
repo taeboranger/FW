@@ -5,8 +5,12 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey : true
         },
+        itemCode: {
+            type : DataTypes.INTEGER,
+            primaryKey : true
+        },
         name : {
-            type : DataTypes.STRING(2000)
+            type : DataTypes.STRING(200)
         },
         number : {
             type : DataTypes.STRING(200)

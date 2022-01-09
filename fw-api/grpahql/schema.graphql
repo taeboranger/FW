@@ -1,4 +1,44 @@
-type Query{
-      hello:String,
-      nodejs:Int
+type Item {
+
+    index: Int
+    name: String!
+    price: Int!
+    series: String!
+    cateogry: String!
+    bonus: Boolean!
+
 }
+
+type Sheet {
+
+    index: Int
+    userIndex: Int
+    itemIndex: Int
+    price: Int!
+    bonus: Boolean!
+    date: String!
+
+}
+
+type User {
+
+    index: Int
+    userId: String
+    email: String
+    total_c: Int
+    tatal_p: Int
+
+}
+
+type Query {
+
+    item(index: Int!) : [Item]!
+    sheet(index: Int!) : [Sheet]!
+
+}
+
+# type Mutation {
+
+    
+
+# }
