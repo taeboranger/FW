@@ -1,11 +1,12 @@
 type Item {
 
     index: Int
-    name: String!
-    price: Int!
-    series: String!
-    cateogry: String!
-    bonus: Boolean!
+    itemCode: Int
+    name: String
+    price: Int
+    series: String
+    cateogry: String
+    bonus: Boolean
 
 }
 
@@ -14,9 +15,9 @@ type Sheet {
     index: Int
     userIndex: Int
     itemIndex: Int
-    price: Int!
-    bonus: Boolean!
-    date: String!
+    price: Int
+    bonus: Boolean
+    date: String
 
 }
 
@@ -30,15 +31,26 @@ type User {
 
 }
 
+type ItemImg {
+
+    index: Int
+    itemCode: Int
+    file_link: String
+    turn: Int
+
+}
+
 type Query {
 
-    item(index: Int!) : [Item]!
-    sheet(index: Int!) : [Sheet]!
+    item(index: Int) : [Item]!
+    sheet(index: Int) : [Sheet]!
+    itemImg(index: Int!) : [ItemImg]!
 
 }
 
 # type Mutation {
 
+    
     
 
 # }

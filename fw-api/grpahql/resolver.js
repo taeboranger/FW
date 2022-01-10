@@ -1,7 +1,7 @@
+const getItem = require('./controller').getItem
+
 module.exports = resolver = {
-    item: (_, {index}) => {
-        return JSON.parse('{"name" : "hi"}')
-    },
-    sheet: (_, {index}) => 20,
+    item: (args) => getItem(args),
+    sheet: (args) => 20,
 }
 

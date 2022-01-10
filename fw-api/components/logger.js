@@ -1,12 +1,14 @@
 const winston = require('winston');
 const winstonDaily = require('winston-daily-rotate-file')
+var getNamespace = require('continuation-local-storage').getNamespace;
 const moment = require('moment');   //한국시간을 나타내기 위한 모듈 추가
 const fs = require('fs'); 
 const logDir ='./log';
+const apiReq = getNamespace('api')
 
 const { combine, timestamp, printf } = winston.format
 const logFormat = printf(info => {
-    return `${info.timestamp} ${info.level}: ${info.message}`;
+    return `${info.timestamp} [${apiReq.get('reqId')}] ${info.level}: ${info.message}`;
   })
 
 const logger = winston.createLogger({
