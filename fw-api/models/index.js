@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const config = require("../configs/config.json")
 var db = {}
 
-db_config = config.development
+db_config = config.dev_db
 var sequelize = new Sequelize(
     db_config.database,
     db_config.username, 

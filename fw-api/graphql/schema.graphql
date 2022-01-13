@@ -18,6 +18,7 @@ type Sheet {
     price: Int
     bonus: Boolean
     date: String
+    type: String
 
 }
 
@@ -42,15 +43,15 @@ type ItemImg {
 
 type Query {
 
-    item(index: Int) : [Item]!
-    sheet(index: Int) : [Sheet]!
-    itemImg(index: Int!) : [ItemImg]!
+    getItem(index: Int) : [Item]!
+    getSheet(index: Int) : [Sheet]!
+    getItemImg(index: Int!) : [ItemImg]!
 
 }
 
-# type Mutation {
+type Mutation {
 
-    
-    
+    setSheet(itemIndex: Int!, price: Int!, bonus: Boolean!, date: String, type: String!): Int!    
+    updSheet(index: Int!, itemIndex: Int!, price: Int!, bonus: Boolean!, date: String, type: String!): Int!
 
-# }
+}

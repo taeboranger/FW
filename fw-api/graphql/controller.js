@@ -9,7 +9,7 @@ const Sheet = require('../models/index').Sheet
 exports.getItem = async (args) => {
 
     if(args.index) {
-        log("getItem requested, index : " + String(args.index))
+        log(`getItem requested, index : ${args.index}`)
         return await Item.findAll({
             raw: true,
             where: {
@@ -29,7 +29,7 @@ exports.getItem = async (args) => {
 exports.getSheet = async (args) => {
 
     if(args.index) {
-        log("getSheet requested, index : " + String(args.index))
+        log(`getSheet requested, index : ${args.index}`)
         return await Sheet.findAll({
             raw: true,
             where: {
@@ -43,5 +43,39 @@ exports.getSheet = async (args) => {
             raw: true
         })
     }
+
+}
+
+exports.setSheet = async (args, context) => {
+
+    console.log(context.req['method'])
+    res = await Sheet.create({
+        index: 0,
+        userIndex: 0,
+        itemIndex: args.itemIndex,
+        price: args.price,
+        bonus: args.bonus,
+        date: args.date,
+        type: args.type
+    })
+    log(`setSheet created, index: ${res.index}`)
+    return res.index
+
+}
+
+exports.updSheet = async (args) => {
+
+    res = await Sheet.update({
+        itemIndex: args.itemIndex,
+        price: args.price,
+        bonus: args.bonus,
+        date: args.date,
+        type: args.type
+    },
+    {
+        where: args.index
+    })
+    log(`setSheet updated, index: ${res.index}`)
+    return res.index
 
 }
