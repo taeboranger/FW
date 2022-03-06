@@ -4,7 +4,6 @@ const setSheet = require('./controller').setSheet
 
 module.exports = resolver = {
     getItem: (args) => getItem(args),
-    getSheet: (args) => getSheet(args),
+    getSheet: (args, context) => getSheet(args, context),
     setSheet: (args, context) => setSheet(args, context)
 }
-

@@ -25,7 +25,7 @@ api.use((req, res, next) => {
     })
 })
 
-const configPassport = require('./configs/passport')
+const configPassport = require('./middlewares/passport')
 configPassport(api)
 
 const configGraphQL = require('./graphql/graphqlHTTP')
@@ -42,12 +42,23 @@ api.listen(PORT,"0.0.0.0",()=>{
      
         log('sequelizer working')
     }
-    driver(); // sequelize syncedr
+    driver()
     
     log(`Server running on Port ${PORT}`)
 })
 
 api.get('/', (req,res) => {
-    console.log(req.user.id)
+    try{
+        console.log(req.user.id)
+    }
+    catch(e){
+
+    }
+    console.log(req.session)
     res.send(req.user.id)
+})
+
+api.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
 })

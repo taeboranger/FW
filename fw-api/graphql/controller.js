@@ -26,7 +26,7 @@ exports.getItem = async (args) => {
 
 }
 
-exports.getSheet = async (args) => {
+exports.getSheet = async (args, context) => {
 
     if(args.index) {
         log(`getSheet requested, index : ${args.index}`)
@@ -48,7 +48,7 @@ exports.getSheet = async (args) => {
 
 exports.setSheet = async (args, context) => {
 
-    console.log(context.req['method'])
+    email = context.req['user'].emails[0].value
     res = await Sheet.create({
         index: 0,
         userIndex: 0,
