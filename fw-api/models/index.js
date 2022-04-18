@@ -5,11 +5,10 @@ var db = {}
 db_config = config.dev_db
 var sequelize = new Sequelize(
     db_config.database,
-    db_config.username, 
-    db_config.password, 
+    db_config.username,
+    db_config.password,
     db_config
-); 
-
+);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

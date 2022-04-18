@@ -51,7 +51,7 @@ type Query {
 
 type Mutation {
 
-    setSheet(itemIndex: Int!, price: Int!, bonus: Boolean!, date: String, type: String!): Int!    
+    setSheet(itemIndex: Int!, price: Int!, bonus: Boolean!, date: String, type: String!): Int!
     updSheet(index: Int!, itemIndex: Int!, price: Int!, bonus: Boolean!, date: String, type: String!): Int!
 
 }

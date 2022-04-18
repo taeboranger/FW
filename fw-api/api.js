@@ -1,5 +1,6 @@
 const express = require('express')
 const api = express()
+const cookieParser = require('cookie-parser')
 
 const uuid = require('node-uuid')
 const createNamespace = require('continuation-local-storage').createNamespace
@@ -15,11 +16,12 @@ dotenv.config()
 
 const PORT = process.env.PORT || 3000
 
-const configSession = require('./configs/session')
+api.use(cookieParser())
+const configSession = require('./middlewares/session')
 configSession(api)
 
 api.use((req, res, next) => {
-    apiReq.run( () => {
+    apiReq.run(() => {
         apiReq.set('reqId', uuid.v1())
         next()
     })
@@ -31,7 +33,7 @@ configPassport(api)
 const configGraphQL = require('./graphql/graphqlHTTP')
 configGraphQL(api)
 
-api.listen(PORT,"0.0.0.0",()=>{
+api.listen(PORT, () => {
     const driver = async () => {
         try {
             await sequelize.sync()
@@ -39,23 +41,21 @@ api.listen(PORT,"0.0.0.0",()=>{
             err(`sequelize error : ${e}`)
             return
         }
-     
+
         log('sequelizer working')
     }
     driver()
-    
+
     log(`Server running on Port ${PORT}`)
 })
 
-api.get('/', (req,res) => {
-    try{
-        console.log(req.user.id)
+api.get('/', (req, res) => {
+    try {
+        res.send(req.user)
     }
-    catch(e){
-
+    catch (e) {
+        res.send("!")
     }
-    console.log(req.session)
-    res.send(req.user.id)
 })
 
 api.get('/logout', (req, res) => {

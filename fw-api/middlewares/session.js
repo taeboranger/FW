@@ -6,7 +6,7 @@ const session_config = require('../configs/config.json').dev_session_config
 
 module.exports = api => api.use(session(
     Object.assign({
-    "secret": process.env['SESSION_SECRET'],
-    "store": session_store,
+        "secret": process.env['SESSION_SECRET'],
+        "store": session_store,
     }, session_config)
 ))
