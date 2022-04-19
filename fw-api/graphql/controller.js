@@ -27,25 +27,63 @@ const Sheet = require('../models/index').Sheet
 
 // }
 
-// exports.getSheet = async (args, context) => {
+exports.getSheet = async (args, context) => {
 
-//     if (args.index) {
-//         log(`getSheet requested, index : ${args.index}`)
-//         return await Sheet.findAll({
-//             raw: true,
-//             where: {
-//                 index: args.index
-//             }
-//         })
-//     }
-//     else {
-//         log("getSheet requested, All")
-//         return await Sheet.findAll({
-//             raw: true
-//         })
-//     }
+    try {
+        context.req.user.emails[0].value
+    }
+    catch (error) {
+        err("No user info! : ")
+        return null
+    }
+    return await User.findOne({
+        attributes: ['index'],
+        where: {
+            email: context.req.user.emails[0].value
+        }
+    }).then(res => {
+        if (args.index) {
+            userIndex = res.index
+            return Sheet.findOne({
+                attributes: ['index', 'userIndex', 'itemIndex', 'price', 'bonus', 'date', 'type'],
+                where: {
+                    index: args.index
+                }
+            }).then(res => {
+                if (res.userIndex == userIndex) {
+                    console.log("!")
+                    return [res]
+                }
+                else {
+                    err("Not your sheet! : " + email)
+                    return null
+                }
+            }).catch(error => {
+                err("Sheet selection(one) error! : " + error)
+                return null
+            })
+        }
+        else {
+            userIndex = res.index
+            return Sheet.findAll({
+                attributes: ['index', 'userIndex', 'itemIndex', 'price', 'bonus', 'date', 'type'],
+                where: {
+                    userIndex: userIndex
+                }
+            }).then(res => {
+                console.log(res)
+                return res
+            }).catch(error => {
+                err("Sheet selection(all) error! : " + error)
+                return null
+            })
+        }
+    }).catch(error => {
+        err("User select error occured : " + error)
+        return null
+    })
 
-// }
+}
 
 exports.setSheet = async (args, context) => {
     try {
