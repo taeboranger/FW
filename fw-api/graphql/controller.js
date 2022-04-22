@@ -7,25 +7,97 @@ const Item = require('../models/index').Item
 const ItemImg = require('../models/index').ItemImg
 const Sheet = require('../models/index').Sheet
 
-// exports.getItem = async (args) => {
+exports.getUser = async (args, context) => {
 
-//     if (args.index) {
-//         log(`getItem requested, index : ${args.index}`)
-//         return await Item.findAll({
-//             raw: true,
-//             where: {
-//                 index: args.index
-//             }
-//         })
-//     }
-//     else {
-//         log("getItem requested, All")
-//         return await Item.findAll({
-//             raw: true
-//         })
-//     }
+    try {
+        context.req.user.emails[0].value
+    }
+    catch (error) {
+        err("No user info! : ")
+        return null
+    }
 
-// }
+    return await User.findOne({
+        where: {
+            email: context.req.user.emails[0].value
+        }
+    }).then(res => {
+        index = res.index
+        return Sheet.findAll({
+            attributes: ['index', 'userIndex', 'itemIndex', 'price', 'bonus', 'date', 'type'],
+            raw: true,
+            where: {
+                userIndex: index
+            }
+        }).then(res => {
+            total_c = res.length
+            total_p = 0
+            res.forEach(sheet => {
+                total_p += sheet.price
+            })
+            return User.update({
+                total_c: total_c,
+                total_p: total_p
+            }, {
+                where: {
+                    index: index
+                }
+            }).then(_ => {
+                return User.findOne({
+                    where: {
+                        index: index
+                    }
+                }).then(res => {
+                    return res
+                }).catch(error => {
+                    err("Can't select user : " + error)
+                    return null
+                })
+            }).catch(error => {
+                err("Can't update user : " + error)
+                return null
+            })
+        }).catch(error => {
+            err("Can't select sheet : " + error)
+            return null
+        })
+    }).catch(error => {
+        err("Can't select user : " + error)
+        return null
+    })
+
+}
+
+exports.getItem = async (args) => {
+
+    if (args.index) {
+        log(`getItem requested, index : ${args.index}`)
+        return await Item.findOne({
+            raw: true,
+            where: {
+                index: args.index
+            }
+        }).then(res1 => {
+            return ItemImg.findOne({
+                attributes: ['index', 'file_link'],
+                where: {
+                    index: args.index
+                }
+            }).then(res2 => {
+                res1.img = 'img'
+                console.log(res1)
+                return [res1]
+            })
+        })
+    }
+    else {
+        log("getItem requested, All")
+        return await Item.findAll({
+            raw: true
+        })
+    }
+
+}
 
 exports.getSheet = async (args, context) => {
 
@@ -66,10 +138,13 @@ exports.getSheet = async (args, context) => {
         else {
             userIndex = res.index
             return Sheet.findAll({
+                raw: true,
                 attributes: ['index', 'userIndex', 'itemIndex', 'price', 'bonus', 'date', 'type'],
                 where: {
                     userIndex: userIndex
-                }
+                },
+                offset: (args.page - 1) * 20,
+                limit: 20
             }).then(res => {
                 console.log(res)
                 return res

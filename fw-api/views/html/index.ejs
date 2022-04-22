@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <script src="/js/index.js"></script>
+</head>
+
+<body>
+
+    <div class='nav-bar'>
+        <div class='title' onclick="window.location.href ='/'">
+            NenSheet
+        </div>
+        <div class='nav-btn-sheet' onclick="window.location.href ='/About'">
+            About
+        </div>
+        <!--DEMO
+        <div class='nav-btn-db' onclick="window.location.href ='/DB'">
+            DB
+        </div>
+        -->
+        <%- btn %>
+    </div>
+    <div class="sheet">
+        <div class="banner">
+            <div class="banner-itemindex">번호</div>
+            <div class="banner-thumb">사진</div>
+            <div class="banner-series">시리즈</div>
+            <div class="banner-name">이름</div>
+            <div class="banner-price">정가</div>
+            <div class="banner-price-bought">구매가</div>
+            <div class="banner-bonus">특전</div>
+            <div class="banner-bonus-exist">보유</div>
+            <div class="banner-date">구매일</div>
+            <div class="banner-type">타입</div>
+        </div>
+        <div class="sheet-list">
+            
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,37 +1,34 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Item', {
         index: {
-            type : DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey : true
+            primaryKey: true
         },
         itemCode: {
-            type : DataTypes.INTEGER,
-            primaryKey : true
+            type: DataTypes.INTEGER,
+            primaryKey: true
         },
-        name : {
-            type : DataTypes.STRING(200)
+        name: {
+            type: DataTypes.STRING(200)
         },
-        number : {
-            type : DataTypes.STRING(200)
+        price: {
+            type: DataTypes.INTEGER
         },
-        price : {
-            type : DataTypes.INTEGER
+        series: {
+            type: DataTypes.STRING(200)
         },
-        series : {
-            type : DataTypes.STRING(200)
+        category: {
+            type: DataTypes.STRING(200)
         },
-        category : {
-            type : DataTypes.STRING(200)
-        },
-        bonus : {
-            type : DataTypes.INTEGER
+        bonus: {
+            type: DataTypes.INTEGER
         },
     },
-    {
-        timestamps: true,
-        freezeTableName: true,
-        tableName: 'Item',
-        unique: false
-    })
+        {
+            timestamps: true,
+            freezeTableName: true,
+            tableName: 'Item',
+            unique: false
+        })
 }

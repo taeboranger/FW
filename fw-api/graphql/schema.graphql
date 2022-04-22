@@ -3,9 +3,10 @@ type Item {
     index: Int
     itemCode: Int
     name: String
+    img: String
     price: Int
     series: String
-    cateogry: String
+    category: String
     bonus: Boolean
 
 }
@@ -28,7 +29,7 @@ type User {
     userId: String
     email: String
     total_c: Int
-    tatal_p: Int
+    total_p: Int
 
 }
 
@@ -44,8 +45,9 @@ type ItemImg {
 type Query {
 
     getItem(index: Int) : [Item]!
-    getSheet(index: Int) : [Sheet]!
+    getSheet(index: Int, page: Int) : [Sheet]!
     getItemImg(index: Int!) : [ItemImg]!
+    getUser(index: Int) : User!
 
 }
 
